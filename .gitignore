@@ -39,3 +39,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large 3D asset files - NEVER commit these
+*.glb
+*.gltf
+*.obj
+*.mtl
+*.fbx
+*.blend
+
+# Raw data files - process locally, don't commit
+data/raw/**
+!data/raw/.gitkeep
+
+# Processed data - large binary files
+data/processed/glb/**
+!data/processed/glb/.gitkeep
+
+# Keep metadata files (JSON/text)
+!data/processed/metadata/

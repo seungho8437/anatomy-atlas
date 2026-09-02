@@ -1,0 +1,100 @@
+{
+  "structures": [
+    {
+      "id": "bone.femur",
+      "externalIds": {
+        "fmaId": "FMA:24474"
+      },
+      "names": {
+        "ko": "대퇴골",
+        "en": "Femur",
+        "la": "Femur"
+      },
+      "system": "skeletal",
+      "region": "lower_limb",
+      "tissueType": "bone",
+      "assetRefs": ["asset.femur.bp3d.v1"],
+      "movement": {
+        "animationCapable": true,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "bone.tibia",
+      "externalIds": {
+        "fmaId": "FMA:24477"
+      },
+      "names": {
+        "ko": "정강이뼈",
+        "en": "Tibia",
+        "la": "Tibia"
+      },
+      "system": "skeletal",
+      "region": "lower_limb",
+      "tissueType": "bone",
+      "assetRefs": ["asset.tibia.bp3d.v1"],
+      "movement": {
+        "animationCapable": true,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "muscle.sartorius",
+      "externalIds": {
+        "fmaId": "FMA:22548"
+      },
+      "names": {
+        "ko": "봉공근",
+        "en": "Sartorius",
+        "la": "Musculus sartorius"
+      },
+      "system": "muscular",
+      "region": "lower_limb",
+      "tissueType": "muscle",
+      "assetRefs": ["asset.sartorius.bp3d.v1"],
+      "movement": {
+        "animationCapable": true,
+        "animationStatus": "planned",
+        "origin": "bone.coxae",
+        "insertion": "bone.tibia",
+        "action": "hip flexion, knee flexion"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "asset.femur.bp3d.v1",
+      "structureIds": ["bone.femur"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3365.obj",
+      "processedFilename": "femur-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/femur-right.glb",
+      "license": "CC BY-SA 2.1 Japan",
+      "notes": "Representation ID BP8920, Element File ID FJ3365, Concept ID FMA24474 (Right femur)"
+    },
+    {
+      "assetId": "asset.tibia.bp3d.v1",
+      "structureIds": ["bone.tibia"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3387.obj",
+      "processedFilename": "tibia-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/tibia-right.glb",
+      "license": "CC BY-SA 2.1 Japan",
+      "notes": "Representation ID BP8031, Element File ID FJ3387, Concept ID FMA24477 (Right tibia)"
+    }
+  ],
+  "relationships": [],
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-01-01T00:00:00Z",
+    "source": "Initial Phase 1 MVP fixture",
+    "notes": "Minimal fixture containing femur, tibia, and sartorius for development and testing"
+  }
+}

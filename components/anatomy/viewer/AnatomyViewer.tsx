@@ -178,13 +178,20 @@ function SharedCoordinateAsset({
 }) {
   const { scene } = useGLTF(assetPath);
 
-  useEffect(() => {
-    // Explicitly preserve the original BodyParts3D transform.
-    scene.position.set(0, 0, 0);
-    scene.scale.setScalar(1);
+useEffect(() => {
+  // Explicitly preserve the original BodyParts3D transform.
+  scene.position.set(0, 0, 0);
+  scene.scale.setScalar(1);
 
-    onLoaded(structureId, scene);
-  }, [scene, structureId, onLoaded]);
+  // STEP 3-8: Disable frustum culling for diagnostic rendering.
+  scene.traverse((object) => {
+    if (object instanceof THREE.Mesh) {
+      object.frustumCulled = false;
+    }
+  });
+
+  onLoaded(structureId, scene);
+}, [scene, structureId, onLoaded]);
 
   return (
     <primitive
@@ -247,6 +254,11 @@ function SharedCoordinateScene({
     if (!groupRef.current) return;
     if (loadedScenesRef.current.size === 0) return;
 
+    // Reset parent group transform to avoid cumulative/oscillating transforms
+    groupRef.current.position.set(0, 0, 0);
+    groupRef.current.scale.setScalar(1);
+    groupRef.current.updateMatrixWorld(true);
+
     // Calculate one combined bounding box using
     // the ORIGINAL BodyParts3D coordinates.
     const combinedBox = new THREE.Box3();
@@ -304,14 +316,38 @@ function SharedCoordinateScene({
     //
     // Individual BodyParts3D assets retain their
     // original coordinates and relative scale.
+    const sharedScale = 2 / maxDimension;
+
     groupRef.current.position.set(
-      -center.x,
-      -center.y,
-      -center.z
+      -center.x * sharedScale,
+      -center.y * sharedScale,
+      -center.z * sharedScale
     );
 
-    groupRef.current.scale.setScalar(
-      2 / maxDimension
+    groupRef.current.scale.setScalar(sharedScale);
+
+    groupRef.current.updateMatrixWorld(true);
+
+    const worldBox = new THREE.Box3().setFromObject(
+      groupRef.current
+    );
+
+    const worldCenter = worldBox.getCenter(
+      new THREE.Vector3()
+    );
+
+    const worldSize = worldBox.getSize(
+      new THREE.Vector3()
+    );
+
+    console.log(
+      "PHASE 3-8 — World Box Center:",
+      worldCenter.toArray()
+    );
+
+    console.log(
+      "PHASE 3-8 — World Box Size:",
+      worldSize.toArray()
     );
   }, [version]);
 

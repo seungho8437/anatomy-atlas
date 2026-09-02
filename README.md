@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3D Human Anatomy Atlas — Phase 1 MVP
 
-## Getting Started
+An independent, open-source interactive 3D visualization of human anatomy for educational and clinical use.
 
-First, run the development server:
+## Project Independence
+
+This project is **completely independent** of the existing `herbal-formulas` application. It does not depend on, import from, or share infrastructure with that project.
+
+## Phase 1: Core Objectives
+
+Build the foundational 3D anatomy viewer with:
+
+- 3D structure visualization using Three.js
+- Orbit camera controls (rotation, zoom, pan)
+- Structure selection and highlighting
+- Basic metadata display
+- Extensible asset pipeline
+- Clean separation between knowledge and 3D assets
+
+## Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Navigate to http://localhost:3000/anatomy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+anatomy-atlas/
+├── app/anatomy/              # Next.js app directory
+├── components/anatomy/       # 3D viewer components
+├── lib/anatomy/              # Domain types
+├── data/                     # Asset registry and data
+├── scripts/anatomy/          # Processing pipeline
+├── licensing/                # Provenance documentation
+└── tests/anatomy/            # Test suite
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture Principles
 
-## Learn More
+**Core Principle**: AnatomyStructure (knowledge) ≠ Asset (3D representation)
 
-To learn more about Next.js, take a look at the following resources:
+One anatomical structure may have multiple assets. This separation enables:
+- Multiple asset sources
+- Different resolutions and formats
+- Easy updates without restructuring knowledge
+- Future scalability
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev          # Development server
+npm run build        # Production build
+npm run typecheck    # Type validation
+npm run lint         # Code linting
+npm run test:smoke   # Smoke tests
+npm run process -- --source <source> --structure <name>  # Process assets
+```
 
-## Deploy on Vercel
+## Phase 1 MVP Scope
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Three representative anatomical structures for validation:
+- **Femur** (bone.femur)
+- **Tibia** (bone.tibia)
+- **Sartorius** (muscle.sartorius)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Data Sources & Licensing
+
+All external sources must be documented with:
+- Source name and version
+- License and attribution
+- URL and retrieval date
+- Provenance record
+
+See `licensing/PROVENANCE.md`
+
+## Future Phases
+
+- Phase 2: Anatomy Knowledge Database
+- Phase 3: Korean Medicine Layer
+- Phase 4: User Knowledge Database
+- Phase 5: RAG + Knowledge Graph AI
+
+## Core Development Rules
+
+1. Inspect before modifying
+2. Small incremental phases
+3. Separate concerns
+4. Reproducible processes
+5. No large datasets to LLM
+6. No fabricated data
+7. Document architecture decisions
+8. Stop at phase boundaries
