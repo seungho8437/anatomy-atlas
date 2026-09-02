@@ -32,6 +32,66 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import structuresRegistry from "@/data/registry/structures.json";
+import { AnatomyDetail } from "@/lib/anatomy/types";
+
+/**
+ * Minimal anatomy detail content registry for Phase 13 validation
+ * Keyed by structure ID
+ */
+const anatomyDetailsData: Record<string, AnatomyDetail> = {
+  "bone.femur": {
+    description: "The longest, heaviest, and strongest bone in the human body, forming the skeletal framework of the thigh.",
+    function: "Supports body weight during standing and walking, acting as a primary lever for lower limb locomotion.",
+    location: "Thigh region of the lower limb, articulating proximally with the acetabulum of the hip bone and distally with the tibia and patella.",
+    clinical: "Important in assessing femoral neck fractures, hip dislocations, and knee alignment.",
+  },
+  "bone.tibia": {
+    description: "A major weight-bearing long bone of the lower leg, forming the skeletal framework between the knee and ankle.",
+    function: "Supports body weight during standing and locomotion and participates in the biomechanics of the knee and ankle joints.",
+    location: "Medial aspect of the leg, articulating proximally with the femur and distally with the talus of the ankle.",
+    clinical: "Important in evaluating tibial fractures, compartment syndrome, and alignment of the knee and ankle joints.",
+  },
+  "muscle.sartorius": {
+    description: "A long, slender, strap-like muscle that obliquely crosses the anterior compartment of the thigh.",
+    function: "Flexes, abducts, and laterally rotates the hip joint, and assists in knee joint flexion.",
+    location: "Originates near the anterior superior iliac spine, crosses the thigh diagonally, and inserts on the anteromedial surface of the proximal tibia.",
+    clinical: "Serves as an anatomical landmark for the femoral triangle and forms part of the pes anserinus insertion at the knee.",
+  },
+  "nerve.optic": {
+    description: "The second cranial nerve (CN II) dedicated to transmitting visual sensory information from the retina to the brain.",
+    function: "Transmits visual impulses from retinal photoreceptors to the central nervous system to facilitate visual perception.",
+    location: "Originates at the posterior aspect of the eyeball, traverses the orbit and optic canal, and enters the cranial cavity toward the optic chiasm.",
+    clinical: "Crucial in evaluating optic nerve trauma, compression from intracranial lesions, and visual pathway disorders.",
+  },
+  "vessel.femoral.artery": {
+    description: "The primary arterial conduit supplying oxygenated blood to the lower extremity, continuing from the external iliac artery.",
+    function: "Delivers oxygenated blood and nutrients to the tissues of the thigh, leg, and foot.",
+    location: "Enters the thigh beneath the inguinal ligament, courses through the femoral triangle, and descends along the anteromedial thigh.",
+    clinical: "Key anatomical landmark for assessing lower extremity peripheral perfusion, arterial occlusive disease, and vascular catheterization.",
+  },
+  "organ.kidney.right": {
+    description: "A retroperitoneal organ located on the posterior abdominal wall that filters blood to produce urine.",
+    function: "Excretes metabolic waste, maintains fluid and electrolyte balance, and participates in blood pressure regulation.",
+    location: "Right posterior abdominal cavity (retroperitoneal), situated slightly lower than the left kidney due to the space occupied by the liver.",
+    clinical: "Anatomical relationships and renal vasculature are crucial in evaluating renal calculi, hydronephrosis, and retroperitoneal trauma.",
+  },
+  "bone.hip.right": {
+    description: "A large, irregular bone formed by the fusion of the ilium, ischium, and pubis, forming the right pelvic girdle.",
+    function: "Transfers body weight from the axial skeleton to the lower limb, provides structural pelvic stability, and forms the hip joint.",
+    location: "Lateral and anterior aspect of the pelvis, articulating with the sacrum posteriorly and with the femoral head at the acetabulum laterally.",
+    clinical: "Important in evaluating pelvic fractures, hip joint osteoarthritis, acetabular labral pathology, and hip dislocations.",
+  },
+  "bone.patella.right": {
+    description: "A large sesamoid bone situated anterior to the knee joint, embedded within the tendon of the quadriceps femoris muscle.",
+    function: "Increases the leverage and mechanical advantage of the quadriceps tendon during knee extension and protects the anterior knee joint.",
+    location: "Anterior aspect of the distal femur, articulating with the patellar surface of the femur within the patellofemoral joint.",
+    clinical: "Crucial in evaluating patellofemoral pain syndrome, patellar subluxation or dislocation, and extensor mechanism integrity.",
+  },
+};
+
+function getAnatomyDetail(structureId: string): AnatomyDetail | null {
+  return anatomyDetailsData[structureId] ?? null;
+}
 
 // Minimal structureId -> asset storagePath lookup (registry-backed, no new Asset Registry abstraction)
 function getAssetPathForStructure(structureId: string): string | null {
@@ -550,8 +610,38 @@ export function AnatomyViewer({
 }: AnatomyViewerProps) {
   const [selectedStructure, setSelectedStructure] = useState<string | null>(null);
   const [hiddenStructures, setHiddenStructures] = useState<Set<string>>(new Set());
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
+  const [isListOpen, setIsListOpen] = useState(true);
   const [resetTrigger, setResetTrigger] = useState(0);
   const [focusTrigger, setFocusTrigger] = useState(0);
+
+  // Extract unique systems dynamically from the registry
+  const availableSystems = Array.from(
+    new Set(
+      structuresRegistry.structures
+        .map((s) => s.system)
+        .filter((sys): sys is string => typeof sys === "string" && sys.length > 0)
+    )
+  );
+
+  const trimmedQuery = searchQuery.trim().toLowerCase();
+  const displayedStructures = structuresRegistry.structures.filter((s) => {
+    // 1. System filter check
+    if (selectedSystem !== null && s.system !== selectedSystem) {
+      return false;
+    }
+
+    // 2. Search query check (AND condition with system filter)
+    if (trimmedQuery) {
+      const matchId = s.id.toLowerCase().includes(trimmedQuery);
+      const matchEn = s.names?.en?.toLowerCase().includes(trimmedQuery) ?? false;
+      const matchKo = s.names?.ko?.toLowerCase().includes(trimmedQuery) ?? false;
+      return matchId || matchEn || matchKo;
+    }
+
+    return true;
+  });
 
   const handleStructureSelect = (structureId: string | null) => {
     if (structureId) {
@@ -563,6 +653,11 @@ export function AnatomyViewer({
     if (structureId) {
       onStructureSelected?.(structureId);
     }
+  };
+
+  const handleListItemClick = (structureId: string) => {
+    console.log(`PHASE 12 — Structure list item selected: ${structureId}`);
+    handleStructureSelect(structureId);
   };
 
   const handleToggleHide = () => {
@@ -620,32 +715,212 @@ export function AnatomyViewer({
         />
       </Canvas>
 
-      {/* HUD: Selected structure info */}
-      {selectedStructure && (() => {
-        const details = getStructureDetails(selectedStructure);
-        return (
-          <div className="absolute top-4 left-4 bg-slate-900 bg-opacity-80 text-white p-4 rounded border border-blue-500 max-w-xs space-y-1">
-            <p className="text-sm font-semibold text-blue-400">Selected Structure</p>
-            <p className="text-base font-bold">
-              {details?.names?.en ?? selectedStructure}
-              {details?.names?.ko && (
-                <span className="text-xs font-normal text-gray-300 ml-2">({details.names.ko})</span>
-              )}
-            </p>
-            <p className="text-xs text-gray-400">ID: {selectedStructure}</p>
-            {details?.system && (
-              <p className="text-xs text-gray-300">
-                <span className="text-gray-500">System:</span> {details.system}
-              </p>
-            )}
-            {details?.region && (
-              <p className="text-xs text-gray-300">
-                <span className="text-gray-500">Region:</span> {details.region}
-              </p>
-            )}
+      {/* Left Sidebar: Search and Structure List panel */}
+      <div className="absolute top-4 left-4 w-72 sm:w-80 max-h-[calc(100vh-2rem)] flex flex-col gap-2 pointer-events-none z-10">
+        {/* Structure List & Search Panel */}
+        <div className="bg-slate-900/90 border border-slate-700 rounded-lg shadow-2xl backdrop-blur-md flex flex-col overflow-hidden pointer-events-auto">
+          {/* Panel Header with toggle */}
+          <div className="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-slate-950/60">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-slate-200 tracking-wide uppercase">
+                Structures
+              </span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800 text-slate-400 font-medium">
+                {displayedStructures.length} / {structuresRegistry.structures.length}
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsListOpen((prev) => !prev)}
+              className="text-xs text-slate-400 hover:text-white px-1.5 py-0.5 rounded hover:bg-slate-800 transition-colors"
+            >
+              {isListOpen ? "Hide" : "Show"}
+            </button>
           </div>
-        );
-      })()}
+
+          {/* Search bar inside panel */}
+          <div className="p-2 border-b border-slate-800/80">
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search anatomy..."
+                className="w-full bg-slate-950/80 text-white text-xs px-3 py-1.5 rounded border border-slate-700/80 focus:outline-none focus:border-blue-500 shadow-inner placeholder-slate-400"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs px-1"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* System Filter Chips */}
+          <div className="px-2 py-1.5 border-b border-slate-800/80 bg-slate-950/40 flex items-center gap-1 overflow-x-auto scrollbar-none">
+            <button
+              type="button"
+              onClick={() => setSelectedSystem(null)}
+              className={`text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap font-medium transition-colors ${
+                selectedSystem === null
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-700/80"
+              }`}
+            >
+              All
+            </button>
+            {availableSystems.map((sys) => {
+              const isCurrent = selectedSystem === sys;
+              return (
+                <button
+                  key={sys}
+                  type="button"
+                  onClick={() => setSelectedSystem(isCurrent ? null : sys)}
+                  className={`text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap font-medium transition-colors capitalize ${
+                    isCurrent
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-700/80"
+                  }`}
+                >
+                  {sys}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Structure List items */}
+          {isListOpen && (
+            <div className="overflow-y-auto max-h-64 sm:max-h-72 divide-y divide-slate-800/60">
+              {displayedStructures.length > 0 ? (
+                displayedStructures.map((s) => {
+                  const isSelected = selectedStructure === s.id;
+                  const isHidden = hiddenStructures.has(s.id);
+
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => handleListItemClick(s.id)}
+                      className={`w-full text-left px-3 py-2 text-xs transition-colors flex flex-col gap-0.5 ${
+                        isSelected
+                          ? "bg-blue-900/50 border-l-4 border-l-blue-400"
+                          : "hover:bg-slate-800/60"
+                      } ${isHidden ? "opacity-50" : ""}`}
+                    >
+                      <div className="flex items-center justify-between gap-1">
+                        <span className={`font-medium ${isSelected ? "text-blue-200" : "text-white"}`}>
+                          {s.names?.en ?? s.id}
+                        </span>
+                        <div className="flex items-center gap-1 shrink-0">
+                          {isHidden && (
+                            <span className="text-[9px] px-1 py-0.2 rounded bg-amber-950 text-amber-400 border border-amber-800/60 font-medium">
+                              Hidden
+                            </span>
+                          )}
+                          {s.system && (
+                            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+                              {s.system}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      {s.names?.ko && (
+                        <span className="text-[11px] text-slate-300">
+                          {s.names.ko}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="px-3 py-4 text-xs text-slate-400 text-center">
+                  No structures match &ldquo;{searchQuery}&rdquo;
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* HUD: Selected structure info & Anatomy Detail Panel */}
+        {selectedStructure && (() => {
+          const details = getStructureDetails(selectedStructure);
+          const anatomyDetail = getAnatomyDetail(selectedStructure);
+
+          return (
+            <div className="bg-slate-900/90 text-white p-3.5 rounded-lg border border-blue-500 shadow-xl backdrop-blur-md space-y-2.5 pointer-events-auto max-h-96 overflow-y-auto">
+              <div className="space-y-1 pb-2 border-b border-slate-800">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-semibold text-blue-400 uppercase tracking-wide">Selected Structure</p>
+                  {hiddenStructures.has(selectedStructure) && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-700/60">
+                      Hidden
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm font-bold">
+                  {details?.names?.en ?? selectedStructure}
+                  {details?.names?.ko && (
+                    <span className="text-xs font-normal text-gray-300 ml-2">({details.names.ko})</span>
+                  )}
+                </p>
+                <p className="text-xs text-gray-400 font-mono">ID: {selectedStructure}</p>
+                <div className="flex items-center gap-3 text-xs text-gray-300 pt-0.5">
+                  {details?.system && (
+                    <p>
+                      <span className="text-gray-500">System:</span> {details.system}
+                    </p>
+                  )}
+                  {details?.region && (
+                    <p>
+                      <span className="text-gray-500">Region:</span> {details.region}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Detail Panel Content */}
+              <div className="space-y-2 text-xs">
+                {anatomyDetail ? (
+                  <>
+                    {anatomyDetail.description && (
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Description</span>
+                        <p className="text-slate-200 leading-relaxed text-[11px]">{anatomyDetail.description}</p>
+                      </div>
+                    )}
+                    {anatomyDetail.function && (
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Function</span>
+                        <p className="text-slate-200 leading-relaxed text-[11px]">{anatomyDetail.function}</p>
+                      </div>
+                    )}
+                    {anatomyDetail.location && (
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Location</span>
+                        <p className="text-slate-200 leading-relaxed text-[11px]">{anatomyDetail.location}</p>
+                      </div>
+                    )}
+                    {anatomyDetail.clinical && (
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Clinical Significance</span>
+                        <p className="text-slate-200 leading-relaxed text-[11px]">{anatomyDetail.clinical}</p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <p className="text-slate-400 italic text-[11px] py-1">
+                    No detailed information available.
+                  </p>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+      </div>
 
       {/* Action Controls: Focus, Hide / Show, Show All, and Reset View buttons */}
       <div className="absolute top-4 right-4 flex items-center space-x-2">

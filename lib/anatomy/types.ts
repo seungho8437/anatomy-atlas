@@ -85,6 +85,17 @@ export interface AnatomyStructure {
 }
 
 /**
+ * Detailed clinical and functional anatomy data schema
+ * Keyed by structure ID
+ */
+export interface AnatomyDetail {
+  description?: string;
+  function?: string;
+  location?: string;
+  clinical?: string;
+}
+
+/**
  * Asset: 3D representation or resource for an AnatomyStructure
  * 
  * One Asset may represent one or more AnatomyStructures.
