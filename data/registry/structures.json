@@ -82,6 +82,26 @@
         "animationStatus": "planned"
       },
       "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "vessel.femoral.artery",
+      "externalIds": {
+        "fmaId": "FMA:70249"
+      },
+      "names": {
+        "ko": "우측 대퇴동맥",
+        "en": "Right femoral artery",
+        "la": "Arteria femoralis dextra"
+      },
+      "system": "cardiovascular",
+      "region": "lower_limb",
+      "tissueType": "vessel",
+      "assetRefs": ["asset.femoral-artery-right.bp3d.v1"],
+      "movement": {
+        "animationCapable": false,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
     }
   ],
   "assets": [
@@ -132,6 +152,18 @@
       "storagePath": "/assets/bodyparts3d/optic-nerve-right.glb",
       "license": "CC BY 4.0",
       "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP5708, Element File ID FJ1364, Concept ID FMA50875 (Right optic nerve)"
+    },
+    {
+      "assetId": "asset.femoral-artery-right.bp3d.v1",
+      "structureIds": ["vessel.femoral.artery"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2143.obj",
+      "processedFilename": "femoral-artery-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/femoral-artery-right.glb",
+      "license": "CC BY 4.0",
+      "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP6081, Element File ID FJ2143, Concept ID FMA70249 (Right femoral artery)"
     }
   ],
   "relationships": [],

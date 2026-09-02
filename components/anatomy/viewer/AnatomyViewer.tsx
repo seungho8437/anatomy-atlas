@@ -386,9 +386,11 @@ function AnatomyCanvasContent({
     camera.lookAt(0, 0, 0);
   }, [camera]);
 
-  const effectiveStructureIds = structureIds.includes("nerve.optic")
-    ? structureIds
-    : [...structureIds, "nerve.optic"];
+  const effectiveStructureIds = Array.from(new Set([
+    ...structureIds,
+    "nerve.optic",
+    "vessel.femoral.artery"
+  ]));
 
   return (
     <>
@@ -440,8 +442,8 @@ export function AnatomyViewer({
         <AnatomyCanvasContent
           structureIds={
             structureIds.length > 0
-              ? structureIds
-              : ["bone.femur", "bone.tibia", "muscle.sartorius", "nerve.optic"]
+              ? Array.from(new Set([...structureIds, "vessel.femoral.artery"]))
+              : ["bone.femur", "bone.tibia", "muscle.sartorius", "nerve.optic", "vessel.femoral.artery"]
           }
           onStructureSelected={handleStructureSelect}
         />
