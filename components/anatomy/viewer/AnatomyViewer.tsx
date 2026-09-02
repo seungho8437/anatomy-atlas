@@ -122,6 +122,9 @@ function RealStructure({
   const { scene } = useGLTF(assetPath);
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
+  console.log("STEP 3-8 — Asset loaded:", structureId, assetPath);
+console.log("Scene:", scene);
+
 
   // BodyParts3D meshes use whole-body mm coordinates, not origin-centered;
   // recenter and normalize scale so the model is framed like the placeholder.
@@ -145,6 +148,186 @@ function RealStructure({
       onPointerLeave={() => setHovered(false)}
     >
       <primitive object={scene} />
+    </group>
+  );
+}
+
+/**
+ * STEP 3-8
+ *
+ * Individual asset loader for the shared BodyParts3D coordinate prototype.
+ *
+ * IMPORTANT:
+ * - Does NOT center the asset.
+ * - Does NOT normalize the asset.
+ * - Preserves the original BodyParts3D coordinates.
+ */
+function SharedCoordinateAsset({
+  structureId,
+  assetPath,
+  onLoaded,
+  onSelect,
+}: {
+  structureId: string;
+  assetPath: string;
+  onLoaded: (
+    structureId: string,
+    scene: THREE.Object3D
+  ) => void;
+  onSelect: (id: string) => void;
+}) {
+  const { scene } = useGLTF(assetPath);
+
+  useEffect(() => {
+    // Explicitly preserve the original BodyParts3D transform.
+    scene.position.set(0, 0, 0);
+    scene.scale.setScalar(1);
+
+    onLoaded(structureId, scene);
+  }, [scene, structureId, onLoaded]);
+
+  return (
+    <primitive
+      object={scene}
+      onClick={(event: any) => {
+        event.stopPropagation();
+        onSelect(structureId);
+      }}
+    />
+  );
+}
+
+
+/**
+ * STEP 3-8
+ *
+ * Prototype scene for validating the BodyParts3D shared coordinate system.
+ *
+ * All assets remain in their original coordinates.
+ * Only the parent SceneGroup receives centering and normalization.
+ */
+function SharedCoordinateScene({
+  structureIds,
+  onSelect,
+}: {
+  structureIds: string[];
+  onSelect: (id: string) => void;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
+
+  const loadedScenesRef = useRef(
+    new Map<string, THREE.Object3D>()
+  );
+
+  const [version, setVersion] = useState(0);
+
+  const handleLoaded = React.useCallback(
+    (structureId: string, scene: THREE.Object3D) => {
+      loadedScenesRef.current.set(structureId, scene);
+      setVersion((value) => value + 1);
+    },
+    []
+  );
+
+  const assets = structureIds
+    .map((structureId) => ({
+      structureId,
+      assetPath: getAssetPathForStructure(structureId),
+    }))
+    .filter(
+      (
+        item
+      ): item is {
+        structureId: string;
+        assetPath: string;
+      } => item.assetPath !== null
+    );
+
+  useEffect(() => {
+    if (!groupRef.current) return;
+    if (loadedScenesRef.current.size === 0) return;
+
+    // Calculate one combined bounding box using
+    // the ORIGINAL BodyParts3D coordinates.
+    const combinedBox = new THREE.Box3();
+
+    loadedScenesRef.current.forEach((scene) => {
+      combinedBox.expandByObject(scene);
+    });
+
+    if (combinedBox.isEmpty()) return;
+
+    const center = combinedBox.getCenter(
+      new THREE.Vector3()
+    );
+
+    const size = combinedBox.getSize(
+      new THREE.Vector3()
+    );
+
+    const maxDimension = Math.max(
+      size.x,
+      size.y,
+      size.z
+    );
+
+    if (!Number.isFinite(maxDimension) || maxDimension <= 0) {
+      return;
+    }
+
+    console.log(
+      "STEP 3-8 — Shared Coordinate Prototype"
+    );
+
+    console.log("Combined bounds:", {
+      min: combinedBox.min.toArray(),
+      max: combinedBox.max.toArray(),
+    });
+
+    console.log(
+      "Combined center:",
+      center.toArray()
+    );
+
+    console.log(
+      "Combined size:",
+      size.toArray()
+    );
+
+    console.log(
+      "Combined maxDimension:",
+      maxDimension
+    );
+
+    // IMPORTANT:
+    // Only the parent scene is transformed.
+    //
+    // Individual BodyParts3D assets retain their
+    // original coordinates and relative scale.
+    groupRef.current.position.set(
+      -center.x,
+      -center.y,
+      -center.z
+    );
+
+    groupRef.current.scale.setScalar(
+      2 / maxDimension
+    );
+  }, [version]);
+
+  return (
+    <group ref={groupRef}>
+      {assets.map(
+        ({ structureId, assetPath }) => (
+          <SharedCoordinateAsset
+            key={structureId}
+            structureId={structureId}
+            assetPath={assetPath}
+            onLoaded={handleLoaded}
+            onSelect={onSelect}
+          />
+        )
+      )}
     </group>
   );
 }
@@ -182,24 +365,16 @@ function AnatomyCanvasContent({
 
       <Grid args={[10, 10]} cellColor={"#6f6f6f"} sectionColor={"#9d4edd"} infiniteGrid />
 
-      {/* Render real GLB assets where available, placeholder otherwise */}
-      {(structureIds.length === 0 ? ["bone.femur"] : structureIds).map((structureId) => {
-        const assetPath = getAssetPathForStructure(structureId);
-        return assetPath ? (
-          <RealStructure
-            key={structureId}
-            structureId={structureId}
-            assetPath={assetPath}
-            onSelect={onStructureSelected || (() => {})}
-          />
-        ) : (
-          <PlaceholderStructure
-            key={structureId}
-            structureId={structureId}
-            onSelect={onStructureSelected || (() => {})}
-          />
-        );
-      })}
+{/* STEP 3-8: Shared BodyParts3D coordinate prototype */}
+<SharedCoordinateScene
+  structureIds={
+    structureIds.length > 0
+      ? structureIds
+      : ["bone.femur", "bone.tibia"]
+  }
+  onSelect={onStructureSelected || (() => {})}
+/>
+
 
       <Environment preset="studio" />
     </>
