@@ -122,6 +122,26 @@
         "animationStatus": "planned"
       },
       "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "bone.hip.right",
+      "externalIds": {
+        "fmaId": "FMA:16586"
+      },
+      "names": {
+        "ko": "우측 관골",
+        "en": "Right Hip bone",
+        "la": "Os coxae dextrum"
+      },
+      "system": "skeletal",
+      "region": "lower_limb",
+      "tissueType": "bone",
+      "assetRefs": ["asset.hip-right.bp3d.v1"],
+      "movement": {
+        "animationCapable": false,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
     }
   ],
   "assets": [
@@ -196,6 +216,18 @@
       "storagePath": "/assets/bodyparts3d/kidney-right.glb",
       "license": "CC BY 4.0",
       "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP8907, Element File ID FJ3147, Concept ID FMA7204 (Right kidney)"
+    },
+    {
+      "assetId": "asset.hip-right.bp3d.v1",
+      "structureIds": ["bone.hip.right"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3152.obj",
+      "processedFilename": "hip-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/hip-right.glb",
+      "license": "CC BY 4.0",
+      "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP8768, Element File ID FJ3152, Concept ID FMA16586 (Right hip bone)"
     }
   ],
   "relationships": [],
