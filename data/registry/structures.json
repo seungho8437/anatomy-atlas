@@ -43,7 +43,7 @@
     {
       "id": "muscle.sartorius",
       "externalIds": {
-        "fmaId": "FMA:22548"
+        "fmaId": "FMA:22354"
       },
       "names": {
         "ko": "봉공근",
@@ -88,6 +88,18 @@
       "storagePath": "/assets/bodyparts3d/tibia-right.glb",
       "license": "CC BY-SA 2.1 Japan",
       "notes": "Representation ID BP8031, Element File ID FJ3387, Concept ID FMA24477 (Right tibia)"
+    },
+    {
+      "assetId": "asset.sartorius.bp3d.v1",
+      "structureIds": ["muscle.sartorius"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1434.obj",
+      "processedFilename": "sartorius-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/sartorius-right.glb",
+      "license": "CC BY-SA 2.1 Japan",
+      "notes": "Representation ID BP4994, Element File ID FJ1434, Concept ID FMA22354 (Right sartorius)"
     }
   ],
   "relationships": [],

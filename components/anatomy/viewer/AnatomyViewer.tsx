@@ -406,7 +406,7 @@ function AnatomyCanvasContent({
   structureIds={
     structureIds.length > 0
       ? structureIds
-      : ["bone.femur", "bone.tibia"]
+      : ["bone.femur", "bone.tibia", "muscle.sartorius"]
   }
   onSelect={onStructureSelected || (() => {})}
 />
@@ -438,7 +438,11 @@ export function AnatomyViewer({
     <div className="w-full h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Canvas className="w-full h-full">
         <AnatomyCanvasContent
-          structureIds={structureIds.length > 0 ? structureIds : ["bone.femur"]}
+          structureIds={
+            structureIds.length > 0
+              ? structureIds
+              : ["bone.femur", "bone.tibia", "muscle.sartorius"]
+          }
           onStructureSelected={handleStructureSelect}
         />
       </Canvas>
