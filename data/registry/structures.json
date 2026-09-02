@@ -142,6 +142,26 @@
         "animationStatus": "planned"
       },
       "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "bone.patella.right",
+      "externalIds": {
+        "fmaId": "FMA:24486"
+      },
+      "names": {
+        "ko": "우측 슬개골",
+        "en": "Right Patella",
+        "la": "Patella dextra"
+      },
+      "system": "skeletal",
+      "region": "lower_limb",
+      "tissueType": "bone",
+      "assetRefs": ["asset.patella-right.bp3d.v1"],
+      "movement": {
+        "animationCapable": false,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
     }
   ],
   "assets": [
@@ -228,6 +248,18 @@
       "storagePath": "/assets/bodyparts3d/hip-right.glb",
       "license": "CC BY 4.0",
       "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP8768, Element File ID FJ3152, Concept ID FMA16586 (Right hip bone)"
+    },
+    {
+      "assetId": "asset.patella-right.bp3d.v1",
+      "structureIds": ["bone.patella.right"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3381.obj",
+      "processedFilename": "patella-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/patella-right.glb",
+      "license": "CC BY 4.0",
+      "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP8390, Element File ID FJ3381, Concept ID FMA24486 (Right patella)"
     }
   ],
   "relationships": [],
