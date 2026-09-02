@@ -32,7 +32,8 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import structuresRegistry from "@/data/registry/structures.json";
-import { AnatomyDetail } from "@/lib/anatomy/types";
+import { AnatomyDetail, AnatomyRelationship } from "@/lib/anatomy/types";
+import { anatomyRelationships } from "@/lib/anatomy/relationships";
 
 /**
  * Minimal anatomy detail content registry for Phase 13 validation
@@ -91,6 +92,31 @@ const anatomyDetailsData: Record<string, AnatomyDetail> = {
 
 function getAnatomyDetail(structureId: string): AnatomyDetail | null {
   return anatomyDetailsData[structureId] ?? null;
+}
+
+/**
+ * Bidirectional lookup for anatomical relationships associated with a structure
+ */
+function getRelationshipsForStructure(structureId: string) {
+  return anatomyRelationships
+    .filter(
+      (rel) => rel.sourceId === structureId || rel.targetId === structureId
+    )
+    .map((rel) => {
+      const isSource = rel.sourceId === structureId;
+      const otherStructureId = isSource ? rel.targetId : rel.sourceId;
+      const otherDetails = getStructureDetails(otherStructureId);
+      const otherName = otherDetails?.names?.en ?? otherStructureId;
+
+      return {
+        relationship: rel,
+        otherStructureId,
+        otherName,
+        otherDetails,
+        type: rel.type,
+        description: rel.description,
+      };
+    });
 }
 
 // Minimal structureId -> asset storagePath lookup (registry-backed, no new Asset Registry abstraction)
@@ -849,6 +875,7 @@ export function AnatomyViewer({
         {selectedStructure && (() => {
           const details = getStructureDetails(selectedStructure);
           const anatomyDetail = getAnatomyDetail(selectedStructure);
+          const relatedStructures = getRelationshipsForStructure(selectedStructure);
 
           return (
             <div className="bg-slate-900/90 text-white p-3.5 rounded-lg border border-blue-500 shadow-xl backdrop-blur-md space-y-2.5 pointer-events-auto max-h-96 overflow-y-auto">
@@ -914,6 +941,41 @@ export function AnatomyViewer({
                 ) : (
                   <p className="text-slate-400 italic text-[11px] py-1">
                     No detailed information available.
+                  </p>
+                )}
+              </div>
+
+              {/* Anatomical Relationships Section */}
+              <div className="pt-2 border-t border-slate-800 space-y-2 text-xs">
+                <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">
+                  Anatomical Relationships
+                </span>
+                {relatedStructures.length > 0 ? (
+                  <div className="space-y-2">
+                    {relatedStructures.map((relItem, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-slate-950/60 p-2 rounded border border-slate-800 space-y-1"
+                      >
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="font-semibold text-slate-200 text-[11px]">
+                            {relItem.otherName}
+                          </span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-950/80 text-blue-300 border border-blue-800/50 font-mono">
+                            {relItem.type}
+                          </span>
+                        </div>
+                        {relItem.description && (
+                          <p className="text-[11px] text-slate-300 leading-relaxed">
+                            {relItem.description}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-slate-400 italic text-[11px] py-1">
+                    No anatomical relationships available.
                   </p>
                 )}
               </div>

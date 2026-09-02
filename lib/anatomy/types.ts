@@ -96,6 +96,16 @@ export interface AnatomyDetail {
 }
 
 /**
+ * Anatomical relationship between structures
+ */
+export interface AnatomyRelationship {
+  sourceId: string;
+  targetId: string;
+  type: string;
+  description?: string;
+}
+
+/**
  * Asset: 3D representation or resource for an AnatomyStructure
  * 
  * One Asset may represent one or more AnatomyStructures.
@@ -143,32 +153,6 @@ export interface Asset {
   // Timestamps
   createdAt?: string; // ISO timestamp
   updatedAt?: string; // ISO timestamp
-}
-
-/**
- * AnatomyRelationship: First-class entity for relationships between structures
- * 
- * Supports complex relationships with provenance.
- * Example: Muscle X "originates_from" Bone Y (with evidence level)
- */
-export interface AnatomyRelationship {
-  relationshipId: string;
-
-  // Subject of the relationship
-  subjectId: string;
-
-  // Predicate/relationship type
-  predicate: string; // e.g., "originates_from", "innervated_by", "adjacent_to"
-
-  // Object of the relationship
-  objectId: string;
-
-  // Provenance for the relationship
-  provenance?: Provenance[];
-
-  // Timestamps
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 /**
