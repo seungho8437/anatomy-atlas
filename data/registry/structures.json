@@ -102,6 +102,26 @@
         "animationStatus": "planned"
       },
       "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "organ.kidney.right",
+      "externalIds": {
+        "fmaId": "FMA:7204"
+      },
+      "names": {
+        "ko": "우측 신장",
+        "en": "Right kidney",
+        "la": "Ren dexter"
+      },
+      "system": "urinary",
+      "region": "abdomen",
+      "tissueType": "organ",
+      "assetRefs": ["asset.kidney-right.bp3d.v1"],
+      "movement": {
+        "animationCapable": false,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
     }
   ],
   "assets": [
@@ -164,6 +184,18 @@
       "storagePath": "/assets/bodyparts3d/femoral-artery-right.glb",
       "license": "CC BY 4.0",
       "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP6081, Element File ID FJ2143, Concept ID FMA70249 (Right femoral artery)"
+    },
+    {
+      "assetId": "asset.kidney-right.bp3d.v1",
+      "structureIds": ["organ.kidney.right"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3147.obj",
+      "processedFilename": "kidney-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/kidney-right.glb",
+      "license": "CC BY 4.0",
+      "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP8907, Element File ID FJ3147, Concept ID FMA7204 (Right kidney)"
     }
   ],
   "relationships": [],

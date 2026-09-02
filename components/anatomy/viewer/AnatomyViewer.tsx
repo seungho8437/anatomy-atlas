@@ -389,7 +389,8 @@ function AnatomyCanvasContent({
   const effectiveStructureIds = Array.from(new Set([
     ...structureIds,
     "nerve.optic",
-    "vessel.femoral.artery"
+    "vessel.femoral.artery",
+    "organ.kidney.right"
   ]));
 
   return (
@@ -442,8 +443,8 @@ export function AnatomyViewer({
         <AnatomyCanvasContent
           structureIds={
             structureIds.length > 0
-              ? Array.from(new Set([...structureIds, "vessel.femoral.artery"]))
-              : ["bone.femur", "bone.tibia", "muscle.sartorius", "nerve.optic", "vessel.femoral.artery"]
+              ? Array.from(new Set([...structureIds, "vessel.femoral.artery", "organ.kidney.right"]))
+              : ["bone.femur", "bone.tibia", "muscle.sartorius", "nerve.optic", "vessel.femoral.artery", "organ.kidney.right"]
           }
           onStructureSelected={handleStructureSelect}
         />
