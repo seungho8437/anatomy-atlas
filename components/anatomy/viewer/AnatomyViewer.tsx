@@ -386,6 +386,10 @@ function AnatomyCanvasContent({
     camera.lookAt(0, 0, 0);
   }, [camera]);
 
+  const effectiveStructureIds = structureIds.includes("nerve.optic")
+    ? structureIds
+    : [...structureIds, "nerve.optic"];
+
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 5]} />
@@ -403,11 +407,7 @@ function AnatomyCanvasContent({
 
 {/* STEP 3-8: Shared BodyParts3D coordinate prototype */}
 <SharedCoordinateScene
-  structureIds={
-    structureIds.length > 0
-      ? structureIds
-      : ["bone.femur", "bone.tibia", "muscle.sartorius"]
-  }
+  structureIds={effectiveStructureIds}
   onSelect={onStructureSelected || (() => {})}
 />
 
@@ -441,7 +441,7 @@ export function AnatomyViewer({
           structureIds={
             structureIds.length > 0
               ? structureIds
-              : ["bone.femur", "bone.tibia", "muscle.sartorius"]
+              : ["bone.femur", "bone.tibia", "muscle.sartorius", "nerve.optic"]
           }
           onStructureSelected={handleStructureSelect}
         />

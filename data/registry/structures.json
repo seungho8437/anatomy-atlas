@@ -62,6 +62,26 @@
         "action": "hip flexion, knee flexion"
       },
       "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "nerve.optic",
+      "externalIds": {
+        "fmaId": "FMA:50875"
+      },
+      "names": {
+        "ko": "우측 시신경",
+        "en": "Right optic nerve",
+        "la": "Nervus opticus dexter"
+      },
+      "system": "nervous",
+      "region": "head_neck",
+      "tissueType": "nerve",
+      "assetRefs": ["asset.optic-nerve-right.bp3d.v1"],
+      "movement": {
+        "animationCapable": false,
+        "animationStatus": "planned"
+      },
+      "createdAt": "2026-01-01T00:00:00Z"
     }
   ],
   "assets": [
@@ -100,6 +120,18 @@
       "storagePath": "/assets/bodyparts3d/sartorius-right.glb",
       "license": "CC BY-SA 2.1 Japan",
       "notes": "Representation ID BP4994, Element File ID FJ1434, Concept ID FMA22354 (Right sartorius)"
+    },
+    {
+      "assetId": "asset.optic-nerve-right.bp3d.v1",
+      "structureIds": ["nerve.optic"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1364.obj",
+      "processedFilename": "optic-nerve-right.glb",
+      "format": "glb",
+      "storagePath": "/assets/bodyparts3d/optic-nerve-right.glb",
+      "license": "CC BY 4.0",
+      "notes": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Representation ID BP5708, Element File ID FJ1364, Concept ID FMA50875 (Right optic nerve)"
     }
   ],
   "relationships": [],
