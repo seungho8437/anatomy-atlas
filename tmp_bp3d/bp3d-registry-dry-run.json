@@ -1,0 +1,1090 @@
+{
+  "source": "BodyParts3D",
+  "sourceVersion": "4.0",
+  "generatedAt": "2026-09-02T12:59:57.582Z",
+  "testMode": true,
+  "structures": [
+    {
+      "id": "fma.24474",
+      "externalIds": {
+        "fmaId": "FMA:24474",
+        "bp3dId": "BP8920"
+      },
+      "names": {
+        "en": "right femur"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24474.fj3365.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.24477",
+      "externalIds": {
+        "fmaId": "FMA:24477",
+        "bp3dId": "BP8031"
+      },
+      "names": {
+        "en": "right tibia"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24477.fj3387.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.22354",
+      "externalIds": {
+        "fmaId": "FMA:22354",
+        "bp3dId": "BP4994"
+      },
+      "names": {
+        "en": "right sartorius"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22354.fj1434.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.50875",
+      "externalIds": {
+        "fmaId": "FMA:50875",
+        "bp3dId": "BP5708"
+      },
+      "names": {
+        "en": "right optic nerve"
+      },
+      "system": "nervous",
+      "tissueType": "nerve",
+      "assetRefs": [
+        "asset.fma50875.fj1364.bp3d.v1",
+        "asset.fma50875.fj1819.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.70249",
+      "externalIds": {
+        "fmaId": "FMA:70249",
+        "bp3dId": "BP6081"
+      },
+      "names": {
+        "en": "right femoral artery"
+      },
+      "system": "vascular",
+      "tissueType": "vessel",
+      "assetRefs": [
+        "asset.fma70249.fj2143.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.7204",
+      "externalIds": {
+        "fmaId": "FMA:7204",
+        "bp3dId": "BP8907"
+      },
+      "names": {
+        "en": "right kidney"
+      },
+      "system": "organ",
+      "tissueType": "organ",
+      "assetRefs": [
+        "asset.fma7204.fj3147.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.16586",
+      "externalIds": {
+        "fmaId": "FMA:16586",
+        "bp3dId": "BP8768"
+      },
+      "names": {
+        "en": "right hip bone"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma16586.fj3152.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.24486",
+      "externalIds": {
+        "fmaId": "FMA:24486",
+        "bp3dId": "BP8390"
+      },
+      "names": {
+        "en": "right patella"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24486.fj3381.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.9611",
+      "externalIds": {
+        "fmaId": "FMA:9611",
+        "bp3dId": "BP8921"
+      },
+      "names": {
+        "en": "femur"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma9611.fj3259.bp3d.v1",
+        "asset.fma9611.fj3365.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.24480",
+      "externalIds": {
+        "fmaId": "FMA:24480",
+        "bp3dId": "BP8009"
+      },
+      "names": {
+        "en": "right fibula"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24480.fj3366.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.16585",
+      "externalIds": {
+        "fmaId": "FMA:16585",
+        "bp3dId": "BP8769"
+      },
+      "names": {
+        "en": "hip bone"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma16585.fj3152.bp3d.v1",
+        "asset.fma16585.fj3288.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.24482",
+      "externalIds": {
+        "fmaId": "FMA:24482",
+        "bp3dId": "BP8033"
+      },
+      "names": {
+        "en": "right talus"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24482.fj3385.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.24497",
+      "externalIds": {
+        "fmaId": "FMA:24497",
+        "bp3dId": "BP9040"
+      },
+      "names": {
+        "en": "right calcaneus"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24497.fj3360.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.22328",
+      "externalIds": {
+        "fmaId": "FMA:22328",
+        "bp3dId": "BP5065"
+      },
+      "names": {
+        "en": "right gluteus maximus"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22328.fj1418.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.22429",
+      "externalIds": {
+        "fmaId": "FMA:22429",
+        "bp3dId": "BP8096"
+      },
+      "names": {
+        "en": "zone of quadriceps femoris"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22429.fj1433.bp3d.v1",
+        "asset.fma22429.fj1433m.bp3d.v1",
+        "asset.fma22429.fj1441.bp3d.v1",
+        "asset.fma22429.fj1441m.bp3d.v1",
+        "asset.fma22429.fj1442.bp3d.v1",
+        "asset.fma22429.fj1442m.bp3d.v1",
+        "asset.fma22429.fj1443.bp3d.v1",
+        "asset.fma22429.fj1443m.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.22353",
+      "externalIds": {
+        "fmaId": "FMA:22353",
+        "bp3dId": "BP8877"
+      },
+      "names": {
+        "en": "sartorius"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22353.fj1434.bp3d.v1",
+        "asset.fma22353.fj1434m.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.22558",
+      "externalIds": {
+        "fmaId": "FMA:22558",
+        "bp3dId": "BP4999"
+      },
+      "names": {
+        "en": "right soleus"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22558.fj1437.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.38928",
+      "externalIds": {
+        "fmaId": "FMA:38928",
+        "bp3dId": "BP5598"
+      },
+      "names": {
+        "en": "right rectus femoris"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma38928.fj1433.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.21188",
+      "externalIds": {
+        "fmaId": "FMA:21188",
+        "bp3dId": "BP5879"
+      },
+      "names": {
+        "en": "right femoral vein"
+      },
+      "system": "vascular",
+      "tissueType": "vessel",
+      "assetRefs": [
+        "asset.fma21188.fj2144.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.50865",
+      "externalIds": {
+        "fmaId": "FMA:50865",
+        "bp3dId": "BP4694"
+      },
+      "names": {
+        "en": "trochlear nerve"
+      },
+      "system": "nervous",
+      "tissueType": "nerve",
+      "assetRefs": [
+        "asset.fma50865.fj1330.bp3d.v1",
+        "asset.fma50865.fj1381.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.20803",
+      "externalIds": {
+        "fmaId": "FMA:20803",
+        "bp3dId": "BP6040"
+      },
+      "names": {
+        "en": "branch of lateral circumflex femoral artery"
+      },
+      "system": "vascular",
+      "tissueType": "vessel",
+      "assetRefs": [
+        "asset.fma20803.fj2057.bp3d.v1",
+        "asset.fma20803.fj2063.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.3710",
+      "externalIds": {
+        "fmaId": "FMA:3710",
+        "bp3dId": "BP8338"
+      },
+      "names": {
+        "en": "vascular tree"
+      },
+      "system": "vascular",
+      "tissueType": "vessel",
+      "assetRefs": [
+        "asset.fma3710.fj2925.bp3d.v1",
+        "asset.fma3710.fj2933.bp3d.v1",
+        "asset.fma3710.fj2944.bp3d.v1",
+        "asset.fma3710.fj2950.bp3d.v1",
+        "asset.fma3710.fj2955.bp3d.v1",
+        "asset.fma3710.fj3020.bp3d.v1",
+        "asset.fma3710.fj3040.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "id": "fma.3726",
+      "externalIds": {
+        "fmaId": "FMA:3726",
+        "bp3dId": "BP6599"
+      },
+      "names": {
+        "en": "anastomosis"
+      },
+      "system": "other",
+      "tissueType": "other",
+      "assetRefs": [
+        "asset.fma3726.fj2227.bp3d.v1",
+        "asset.fma3726.fj2229.bp3d.v1",
+        "asset.fma3726.fj2248.bp3d.v1",
+        "asset.fma3726.fj2249.bp3d.v1",
+        "asset.fma3726.fj2279.bp3d.v1",
+        "asset.fma3726.fj2281.bp3d.v1",
+        "asset.fma3726.fj2300.bp3d.v1",
+        "asset.fma3726.fj2301.bp3d.v1"
+      ],
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "asset.fma24474.fj3365.bp3d.v1",
+      "structureIds": [
+        "fma.24474"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3365.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma24474_fj3365.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3365 for right femur (FMA24474).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma24477.fj3387.bp3d.v1",
+      "structureIds": [
+        "fma.24477"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3387.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma24477_fj3387.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3387 for right tibia (FMA24477).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22354.fj1434.bp3d.v1",
+      "structureIds": [
+        "fma.22354"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1434.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22354_fj1434.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1434 for right sartorius (FMA22354).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma50875.fj1364.bp3d.v1",
+      "structureIds": [
+        "fma.50875"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1364.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma50875_fj1364.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1364 for right optic nerve (FMA50875).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma50875.fj1819.bp3d.v1",
+      "structureIds": [
+        "fma.50875"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1819.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma50875_fj1819.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1819 for right optic nerve (FMA50875).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma70249.fj2143.bp3d.v1",
+      "structureIds": [
+        "fma.70249"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2143.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma70249_fj2143.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2143 for right femoral artery (FMA70249).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma7204.fj3147.bp3d.v1",
+      "structureIds": [
+        "fma.7204"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3147.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma7204_fj3147.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3147 for right kidney (FMA7204).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma16586.fj3152.bp3d.v1",
+      "structureIds": [
+        "fma.16586"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3152.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma16586_fj3152.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3152 for right hip bone (FMA16586).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma24486.fj3381.bp3d.v1",
+      "structureIds": [
+        "fma.24486"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3381.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma24486_fj3381.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3381 for right patella (FMA24486).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma9611.fj3259.bp3d.v1",
+      "structureIds": [
+        "fma.9611"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3259.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma9611_fj3259.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3259 for femur (FMA9611).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma9611.fj3365.bp3d.v1",
+      "structureIds": [
+        "fma.9611"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3365.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma9611_fj3365.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3365 for femur (FMA9611).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma24480.fj3366.bp3d.v1",
+      "structureIds": [
+        "fma.24480"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3366.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma24480_fj3366.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3366 for right fibula (FMA24480).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma16585.fj3152.bp3d.v1",
+      "structureIds": [
+        "fma.16585"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3152.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma16585_fj3152.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3152 for hip bone (FMA16585).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma16585.fj3288.bp3d.v1",
+      "structureIds": [
+        "fma.16585"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3288.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma16585_fj3288.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3288 for hip bone (FMA16585).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma24482.fj3385.bp3d.v1",
+      "structureIds": [
+        "fma.24482"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3385.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma24482_fj3385.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3385 for right talus (FMA24482).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma24497.fj3360.bp3d.v1",
+      "structureIds": [
+        "fma.24497"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3360.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma24497_fj3360.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3360 for right calcaneus (FMA24497).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22328.fj1418.bp3d.v1",
+      "structureIds": [
+        "fma.22328"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1418.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22328_fj1418.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1418 for right gluteus maximus (FMA22328).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1433.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1433.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1433.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1433 for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1433m.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1433M.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1433m.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1433M for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1441.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1441.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1441.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1441 for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1441m.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1441M.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1441m.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1441M for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1442.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1442.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1442.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1442 for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1442m.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1442M.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1442m.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1442M for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1443.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1443.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1443.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1443 for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22429.fj1443m.bp3d.v1",
+      "structureIds": [
+        "fma.22429"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1443M.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22429_fj1443m.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1443M for zone of quadriceps femoris (FMA22429).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22353.fj1434.bp3d.v1",
+      "structureIds": [
+        "fma.22353"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1434.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22353_fj1434.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1434 for sartorius (FMA22353).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22353.fj1434m.bp3d.v1",
+      "structureIds": [
+        "fma.22353"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1434M.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22353_fj1434m.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1434M for sartorius (FMA22353).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma22558.fj1437.bp3d.v1",
+      "structureIds": [
+        "fma.22558"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1437.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma22558_fj1437.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1437 for right soleus (FMA22558).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma38928.fj1433.bp3d.v1",
+      "structureIds": [
+        "fma.38928"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1433.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma38928_fj1433.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1433 for right rectus femoris (FMA38928).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma21188.fj2144.bp3d.v1",
+      "structureIds": [
+        "fma.21188"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2144.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma21188_fj2144.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2144 for right femoral vein (FMA21188).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma50865.fj1330.bp3d.v1",
+      "structureIds": [
+        "fma.50865"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1330.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma50865_fj1330.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1330 for trochlear nerve (FMA50865).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma50865.fj1381.bp3d.v1",
+      "structureIds": [
+        "fma.50865"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1381.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma50865_fj1381.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ1381 for trochlear nerve (FMA50865).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma20803.fj2057.bp3d.v1",
+      "structureIds": [
+        "fma.20803"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2057.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma20803_fj2057.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2057 for branch of lateral circumflex femoral artery (FMA20803).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma20803.fj2063.bp3d.v1",
+      "structureIds": [
+        "fma.20803"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2063.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma20803_fj2063.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2063 for branch of lateral circumflex femoral artery (FMA20803).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj2925.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2925.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj2925.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2925 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj2933.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2933.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj2933.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2933 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj2944.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2944.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj2944.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2944 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj2950.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2950.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj2950.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2950 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj2955.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2955.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj2955.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2955 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj3020.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3020.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj3020.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3020 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3710.fj3040.bp3d.v1",
+      "structureIds": [
+        "fma.3710"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3040.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3710_fj3040.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ3040 for vascular tree (FMA3710).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2227.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2227.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2227.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2227 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2229.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2229.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2229.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2229 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2248.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2248.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2248.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2248 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2249.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2249.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2249.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2249 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2279.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2279.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2279.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2279 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2281.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2281.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2281.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2281 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2300.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2300.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2300.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2300 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    },
+    {
+      "assetId": "asset.fma3726.fj2301.bp3d.v1",
+      "structureIds": [
+        "fma.3726"
+      ],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2301.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/fma3726_fj2301.glb",
+      "license": "CC-BY-SA-2.1-JP",
+      "notes": "Candidate asset derived from BodyParts3D element FJ2301 for anastomosis (FMA3726).",
+      "createdAt": "2026-09-02T12:59:57.534Z"
+    }
+  ]
+}

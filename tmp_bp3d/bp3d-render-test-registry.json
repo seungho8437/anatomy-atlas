@@ -1,0 +1,306 @@
+{
+  "source": "BodyParts3D",
+  "sourceVersion": "4.0",
+  "license": "CC-BY-SA-2.1-JP",
+  "attribution": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution-Share Alike 2.1 Japan",
+  "generatedAt": "2026-09-02T12:00:00.000Z",
+  "testMode": true,
+  "structures": [
+    {
+      "id": "fma.50875",
+      "externalIds": {
+        "fmaId": "FMA:50875",
+        "bp3dId": "BP5708"
+      },
+      "names": {
+        "en": "right optic nerve"
+      },
+      "system": "nervous",
+      "tissueType": "nerve",
+      "assetRefs": [
+        "asset.fma50875.fj1364.bp3d.test",
+        "asset.fma50875.fj1819.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.24480",
+      "externalIds": {
+        "fmaId": "FMA:24480",
+        "bp3dId": "BP8009"
+      },
+      "names": {
+        "en": "right fibula"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24480.fj3366.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.24482",
+      "externalIds": {
+        "fmaId": "FMA:24482",
+        "bp3dId": "BP8033"
+      },
+      "names": {
+        "en": "right talus"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24482.fj3385.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.24497",
+      "externalIds": {
+        "fmaId": "FMA:24497",
+        "bp3dId": "BP9040"
+      },
+      "names": {
+        "en": "right calcaneus"
+      },
+      "system": "skeletal",
+      "tissueType": "bone",
+      "assetRefs": [
+        "asset.fma24497.fj3360.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.22328",
+      "externalIds": {
+        "fmaId": "FMA:22328",
+        "bp3dId": "BP5065"
+      },
+      "names": {
+        "en": "right gluteus maximus"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22328.fj1418.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.22353",
+      "externalIds": {
+        "fmaId": "FMA:22353",
+        "bp3dId": "BP8877"
+      },
+      "names": {
+        "en": "sartorius"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22353.fj1434.bp3d.test",
+        "asset.fma22353.fj1434m.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.22558",
+      "externalIds": {
+        "fmaId": "FMA:22558",
+        "bp3dId": "BP4999"
+      },
+      "names": {
+        "en": "right soleus"
+      },
+      "system": "muscular",
+      "tissueType": "muscle",
+      "assetRefs": [
+        "asset.fma22558.fj1437.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.21188",
+      "externalIds": {
+        "fmaId": "FMA:21188",
+        "bp3dId": "BP5879"
+      },
+      "names": {
+        "en": "right femoral vein"
+      },
+      "system": "vascular",
+      "tissueType": "vessel",
+      "assetRefs": [
+        "asset.fma21188.fj2144.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.50865",
+      "externalIds": {
+        "fmaId": "FMA:50865",
+        "bp3dId": "BP4694"
+      },
+      "names": {
+        "en": "trochlear nerve"
+      },
+      "system": "nervous",
+      "tissueType": "nerve",
+      "assetRefs": [
+        "asset.fma50865.fj1330.bp3d.test",
+        "asset.fma50865.fj1381.bp3d.test"
+      ]
+    },
+    {
+      "id": "fma.20803",
+      "externalIds": {
+        "fmaId": "FMA:20803",
+        "bp3dId": "BP6040"
+      },
+      "names": {
+        "en": "branch of lateral circumflex femoral artery"
+      },
+      "system": "vascular",
+      "tissueType": "vessel",
+      "assetRefs": [
+        "asset.fma20803.fj2057.bp3d.test",
+        "asset.fma20803.fj2063.bp3d.test"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "asset.fma50875.fj1364.bp3d.test",
+      "structureIds": ["fma.50875"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1364.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1364.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma50875.fj1819.bp3d.test",
+      "structureIds": ["fma.50875"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1819.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1819.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma24480.fj3366.bp3d.test",
+      "structureIds": ["fma.24480"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3366.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ3366.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma24482.fj3385.bp3d.test",
+      "structureIds": ["fma.24482"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3385.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ3385.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma24497.fj3360.bp3d.test",
+      "structureIds": ["fma.24497"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ3360.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ3360.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma22328.fj1418.bp3d.test",
+      "structureIds": ["fma.22328"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1418.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1418.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma22353.fj1434.bp3d.test",
+      "structureIds": ["fma.22353"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1434.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1434.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma22353.fj1434m.bp3d.test",
+      "structureIds": ["fma.22353"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1434M.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1434M.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma22558.fj1437.bp3d.test",
+      "structureIds": ["fma.22558"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1437.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1437.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma21188.fj2144.bp3d.test",
+      "structureIds": ["fma.21188"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2144.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ2144.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma50865.fj1330.bp3d.test",
+      "structureIds": ["fma.50865"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1330.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1330.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma50865.fj1381.bp3d.test",
+      "structureIds": ["fma.50865"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ1381.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ1381.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma20803.fj2057.bp3d.test",
+      "structureIds": ["fma.20803"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2057.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ2057.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    },
+    {
+      "assetId": "asset.fma20803.fj2063.bp3d.test",
+      "structureIds": ["fma.20803"],
+      "source": "BodyParts3D",
+      "sourceVersion": "4.0",
+      "originalFilename": "FJ2063.obj",
+      "format": "glb",
+      "storagePath": "public/assets/bodyparts3d/test/FJ2063.glb",
+      "license": "CC-BY-SA-2.1-JP"
+    }
+  ]
+}

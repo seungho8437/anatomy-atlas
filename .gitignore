@@ -41,7 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # Large 3D asset files - NEVER commit these
-*.glb
 *.gltf
 *.obj
 *.mtl

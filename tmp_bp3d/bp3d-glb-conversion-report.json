@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-09-02T14:18:28.800Z",
+  "sourceVersion": "4.0",
+  "totalReferenced": 29549,
+  "totalUnique": 2234,
+  "objFound": 2234,
+  "objMissing": 0,
+  "glbCreated": 2234,
+  "glbSkipped": 0,
+  "glbFailed": 0,
+  "failedDetails": [],
+  "totalDiskSizeBytes": 148847748,
+  "largestGlb": {
+    "filename": "FJ2810.glb",
+    "sizeBytes": 4901236
+  }
+}
