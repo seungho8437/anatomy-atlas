@@ -32,22 +32,25 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import structuresRegistry from "@/data/registry/structures.json";
-import testRegistry from "@/tmp_bp3d/bp3d-render-test-registry.json";
 import { AnatomyStructure, Asset, AnatomyDetail, AnatomyRelationship } from "@/lib/anatomy/types";
 import { anatomyRelationships } from "@/lib/anatomy/relationships";
 import { anatomyDetailsData } from "@/data/anatomy/details";
 import { getAnatomyMaterialStyle } from "@/data/anatomy/visualization";
 
 // Combined registry lookup: Production structures + Test structures for non-destructive coexistence
-const combinedStructures = [
-  ...(structuresRegistry.structures as unknown as AnatomyStructure[]),
-  ...(testRegistry.structures as unknown as AnatomyStructure[]),
-];
+const combinedStructures = (
+  structuresRegistry as {
+    structures: AnatomyStructure[];
+    assets: Asset[];
+  }
+).structures;
 
-const combinedAssets = [
-  ...(structuresRegistry.assets as unknown as Asset[]),
-  ...(testRegistry.assets as unknown as Asset[]),
-];
+const combinedAssets = (
+  structuresRegistry as {
+    structures: AnatomyStructure[];
+    assets: Asset[];
+  }
+).assets;
 
 const DEFAULT_INITIAL_STRUCTURE_IDS = [
   "bone.femur",
@@ -853,7 +856,7 @@ export function AnatomyViewer({
                 Structures
               </span>
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800 text-slate-400 font-medium">
-                {displayedStructures.length} / {structuresRegistry.structures.length}
+                {displayedStructures.length} / {combinedStructures.length}
               </span>
             </div>
             <button
