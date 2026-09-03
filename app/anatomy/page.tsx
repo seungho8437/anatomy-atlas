@@ -10,7 +10,6 @@ export default function AnatomyPage() {
   return (
     <main className="w-full h-screen">
       <AnatomyViewer
-        structureIds={["bone.femur", "bone.tibia", "muscle.sartorius"]}
         showGrid={true}
         showEnvironment={true}
       />

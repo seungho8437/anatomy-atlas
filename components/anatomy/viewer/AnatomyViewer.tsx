@@ -32,63 +32,33 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import structuresRegistry from "@/data/registry/structures.json";
-import { AnatomyDetail, AnatomyRelationship } from "@/lib/anatomy/types";
+import testRegistry from "@/tmp_bp3d/bp3d-render-test-registry.json";
+import { AnatomyStructure, Asset, AnatomyDetail, AnatomyRelationship } from "@/lib/anatomy/types";
 import { anatomyRelationships } from "@/lib/anatomy/relationships";
+import { anatomyDetailsData } from "@/data/anatomy/details";
+import { getAnatomyMaterialStyle } from "@/data/anatomy/visualization";
 
-/**
- * Minimal anatomy detail content registry for Phase 13 validation
- * Keyed by structure ID
- */
-const anatomyDetailsData: Record<string, AnatomyDetail> = {
-  "bone.femur": {
-    description: "The longest, heaviest, and strongest bone in the human body, forming the skeletal framework of the thigh.",
-    function: "Supports body weight during standing and walking, acting as a primary lever for lower limb locomotion.",
-    location: "Thigh region of the lower limb, articulating proximally with the acetabulum of the hip bone and distally with the tibia and patella.",
-    clinical: "Important in assessing femoral neck fractures, hip dislocations, and knee alignment.",
-  },
-  "bone.tibia": {
-    description: "A major weight-bearing long bone of the lower leg, forming the skeletal framework between the knee and ankle.",
-    function: "Supports body weight during standing and locomotion and participates in the biomechanics of the knee and ankle joints.",
-    location: "Medial aspect of the leg, articulating proximally with the femur and distally with the talus of the ankle.",
-    clinical: "Important in evaluating tibial fractures, compartment syndrome, and alignment of the knee and ankle joints.",
-  },
-  "muscle.sartorius": {
-    description: "A long, slender, strap-like muscle that obliquely crosses the anterior compartment of the thigh.",
-    function: "Flexes, abducts, and laterally rotates the hip joint, and assists in knee joint flexion.",
-    location: "Originates near the anterior superior iliac spine, crosses the thigh diagonally, and inserts on the anteromedial surface of the proximal tibia.",
-    clinical: "Serves as an anatomical landmark for the femoral triangle and forms part of the pes anserinus insertion at the knee.",
-  },
-  "nerve.optic": {
-    description: "The second cranial nerve (CN II) dedicated to transmitting visual sensory information from the retina to the brain.",
-    function: "Transmits visual impulses from retinal photoreceptors to the central nervous system to facilitate visual perception.",
-    location: "Originates at the posterior aspect of the eyeball, traverses the orbit and optic canal, and enters the cranial cavity toward the optic chiasm.",
-    clinical: "Crucial in evaluating optic nerve trauma, compression from intracranial lesions, and visual pathway disorders.",
-  },
-  "vessel.femoral.artery": {
-    description: "The primary arterial conduit supplying oxygenated blood to the lower extremity, continuing from the external iliac artery.",
-    function: "Delivers oxygenated blood and nutrients to the tissues of the thigh, leg, and foot.",
-    location: "Enters the thigh beneath the inguinal ligament, courses through the femoral triangle, and descends along the anteromedial thigh.",
-    clinical: "Key anatomical landmark for assessing lower extremity peripheral perfusion, arterial occlusive disease, and vascular catheterization.",
-  },
-  "organ.kidney.right": {
-    description: "A retroperitoneal organ located on the posterior abdominal wall that filters blood to produce urine.",
-    function: "Excretes metabolic waste, maintains fluid and electrolyte balance, and participates in blood pressure regulation.",
-    location: "Right posterior abdominal cavity (retroperitoneal), situated slightly lower than the left kidney due to the space occupied by the liver.",
-    clinical: "Anatomical relationships and renal vasculature are crucial in evaluating renal calculi, hydronephrosis, and retroperitoneal trauma.",
-  },
-  "bone.hip.right": {
-    description: "A large, irregular bone formed by the fusion of the ilium, ischium, and pubis, forming the right pelvic girdle.",
-    function: "Transfers body weight from the axial skeleton to the lower limb, provides structural pelvic stability, and forms the hip joint.",
-    location: "Lateral and anterior aspect of the pelvis, articulating with the sacrum posteriorly and with the femoral head at the acetabulum laterally.",
-    clinical: "Important in evaluating pelvic fractures, hip joint osteoarthritis, acetabular labral pathology, and hip dislocations.",
-  },
-  "bone.patella.right": {
-    description: "A large sesamoid bone situated anterior to the knee joint, embedded within the tendon of the quadriceps femoris muscle.",
-    function: "Increases the leverage and mechanical advantage of the quadriceps tendon during knee extension and protects the anterior knee joint.",
-    location: "Anterior aspect of the distal femur, articulating with the patellar surface of the femur within the patellofemoral joint.",
-    clinical: "Crucial in evaluating patellofemoral pain syndrome, patellar subluxation or dislocation, and extensor mechanism integrity.",
-  },
-};
+// Combined registry lookup: Production structures + Test structures for non-destructive coexistence
+const combinedStructures = [
+  ...(structuresRegistry.structures as unknown as AnatomyStructure[]),
+  ...(testRegistry.structures as unknown as AnatomyStructure[]),
+];
+
+const combinedAssets = [
+  ...(structuresRegistry.assets as unknown as Asset[]),
+  ...(testRegistry.assets as unknown as Asset[]),
+];
+
+const DEFAULT_INITIAL_STRUCTURE_IDS = [
+  "bone.femur",
+  "bone.tibia",
+  "bone.hip.right",
+  "bone.patella.right",
+  "muscle.sartorius",
+  "nerve.optic",
+  "vessel.femoral.artery",
+  "organ.kidney.right",
+];
 
 function getAnatomyDetail(structureId: string): AnatomyDetail | null {
   return anatomyDetailsData[structureId] ?? null;
@@ -119,18 +89,28 @@ function getRelationshipsForStructure(structureId: string) {
     });
 }
 
-// Minimal structureId -> asset storagePath lookup (registry-backed, no new Asset Registry abstraction)
-function getAssetPathForStructure(structureId: string): string | null {
-  const structure = structuresRegistry.structures.find((s) => s.id === structureId);
-  const assetId = structure?.assetRefs?.[0];
-  if (!assetId) return null;
-  const asset = structuresRegistry.assets.find((a) => a.assetId === assetId);
-  return asset?.storagePath ?? null;
+// Registry-backed 1:N asset paths lookup: returns array of storagePaths for all assetRefs
+function getAssetPathsForStructure(structureId: string): string[] {
+  const structure = combinedStructures.find((s) => s.id === structureId);
+  if (!structure || !structure.assetRefs || structure.assetRefs.length === 0) {
+    return [];
+  }
+  const paths: string[] = [];
+  for (const ref of structure.assetRefs) {
+    const asset = combinedAssets.find((a) => a.assetId === ref);
+    if (asset?.storagePath) {
+      const normalizedPath = `/${asset.storagePath.replace(/^\//, "")}`;
+      paths.push(normalizedPath);
+    }
+  }
+  return paths;
 }
 
 function getStructureDetails(structureId: string) {
-  return structuresRegistry.structures.find((s) => s.id === structureId) ?? null;
+  return combinedStructures.find((s) => s.id === structureId) ?? null;
 }
+
+export type VisibilityScope = "default" | "selected" | "system" | "all";
 
 interface AnatomyViewerProps {
   /**
@@ -254,17 +234,22 @@ console.log("Scene:", scene);
  */
 function SharedCoordinateAsset({
   structureId,
+  assetKey,
   assetPath,
   isSelected,
+  isRelated = false,
   hidden = false,
   onLoaded,
   onSelect,
 }: {
   structureId: string;
+  assetKey: string;
   assetPath: string;
   isSelected: boolean;
+  isRelated?: boolean;
   hidden?: boolean;
   onLoaded: (
+    assetKey: string,
     structureId: string,
     scene: THREE.Object3D
   ) => void;
@@ -285,27 +270,55 @@ function SharedCoordinateAsset({
 
     // STEP 3-8: Disable frustum culling for diagnostic rendering.
     // Ensure independent materials per mesh to prevent cross-asset highlight bleed.
+    const structure = getStructureDetails(structureId);
+    const materialStyle = getAnatomyMaterialStyle(structure);
+
     scene.traverse((object) => {
       if (object instanceof THREE.Mesh) {
         object.frustumCulled = false;
         if (!originalMaterialsRef.current.has(object)) {
           if (Array.isArray(object.material)) {
-            const cloned = object.material.map((m) => m.clone());
+            const cloned = object.material.map((m) => {
+              const mat = m.clone();
+              if (mat instanceof THREE.MeshStandardMaterial || mat instanceof THREE.MeshPhysicalMaterial) {
+                mat.color.set(materialStyle.color);
+                mat.roughness = materialStyle.roughness;
+                mat.metalness = materialStyle.metalness;
+                if (materialStyle.clearcoat !== undefined && "clearcoat" in mat) {
+                  mat.clearcoat = materialStyle.clearcoat;
+                }
+                if (materialStyle.clearcoatRoughness !== undefined && "clearcoatRoughness" in mat) {
+                  mat.clearcoatRoughness = materialStyle.clearcoatRoughness;
+                }
+              }
+              return mat;
+            });
             object.material = cloned;
             originalMaterialsRef.current.set(object, cloned);
           } else if (object.material) {
-            const cloned = object.material.clone();
-            object.material = cloned;
-            originalMaterialsRef.current.set(object, cloned);
+            const mat = object.material.clone();
+            if (mat instanceof THREE.MeshStandardMaterial || mat instanceof THREE.MeshPhysicalMaterial) {
+              mat.color.set(materialStyle.color);
+              mat.roughness = materialStyle.roughness;
+              mat.metalness = materialStyle.metalness;
+              if (materialStyle.clearcoat !== undefined && "clearcoat" in mat) {
+                mat.clearcoat = materialStyle.clearcoat;
+              }
+              if (materialStyle.clearcoatRoughness !== undefined && "clearcoatRoughness" in mat) {
+                mat.clearcoatRoughness = materialStyle.clearcoatRoughness;
+              }
+            }
+            object.material = mat;
+            originalMaterialsRef.current.set(object, mat);
           }
         }
       }
     });
 
-    onLoaded(structureId, scene);
-  }, [scene, structureId, onLoaded]);
+    onLoaded(assetKey, structureId, scene);
+  }, [scene, assetKey, structureId, onLoaded]);
 
-  // Apply visual highlight non-destructively based on isSelected
+  // Apply visual highlight non-destructively based on isSelected and isRelated
   useEffect(() => {
     scene.traverse((object) => {
       if (object instanceof THREE.Mesh && object.material) {
@@ -317,6 +330,11 @@ function SharedCoordinateAsset({
               if ("emissiveIntensity" in mat && typeof mat.emissiveIntensity === "number") {
                 mat.emissiveIntensity = 0.8;
               }
+            } else if (isRelated) {
+              mat.emissive.setHex(0x06b6d4); // Highlight related structures with cyan emissive glow
+              if ("emissiveIntensity" in mat && typeof mat.emissiveIntensity === "number") {
+                mat.emissiveIntensity = 0.45;
+              }
             } else {
               mat.emissive.setHex(0x000000); // Reset emissive
               if ("emissiveIntensity" in mat && typeof mat.emissiveIntensity === "number") {
@@ -327,7 +345,7 @@ function SharedCoordinateAsset({
         });
       }
     });
-  }, [scene, isSelected]);
+  }, [scene, isSelected, isRelated]);
 
   return (
     <primitive
@@ -342,9 +360,10 @@ function SharedCoordinateAsset({
 
 
 /**
- * STEP 3-8
+ * STEP 3-8 & PHASE 15 (1:N asset support)
  *
- * Prototype scene for validating the BodyParts3D shared coordinate system.
+ * Scene for validating the BodyParts3D shared coordinate system.
+ * Supports 1:1 and 1:N ELEMENT GLBs grouped under their logical structureId.
  *
  * All assets remain in their original coordinates.
  * Only the parent SceneGroup receives centering and normalization.
@@ -352,46 +371,58 @@ function SharedCoordinateAsset({
 function SharedCoordinateScene({
   structureIds,
   selectedStructure,
+  relatedStructures = new Set<string>(),
   hiddenStructures = new Set<string>(),
   onSelect,
   onScenesLoaded,
 }: {
   structureIds: string[];
   selectedStructure: string | null;
+  relatedStructures?: Set<string>;
   hiddenStructures?: Set<string>;
   onSelect: (id: string) => void;
-  onScenesLoaded?: (scenes: Map<string, THREE.Object3D>) => void;
+  onScenesLoaded?: (scenes: Map<string, THREE.Object3D[]>) => void;
 }) {
   const groupRef = useRef<THREE.Group>(null);
 
+  // Maps assetKey -> Object3D
   const loadedScenesRef = useRef(
-    new Map<string, THREE.Object3D>()
+    new Map<string, { structureId: string; scene: THREE.Object3D }>()
   );
 
   const [version, setVersion] = useState(0);
 
   const handleLoaded = React.useCallback(
-    (structureId: string, scene: THREE.Object3D) => {
-      loadedScenesRef.current.set(structureId, scene);
+    (assetKey: string, structureId: string, scene: THREE.Object3D) => {
+      loadedScenesRef.current.set(assetKey, { structureId, scene });
       setVersion((value) => value + 1);
-      onScenesLoaded?.(loadedScenesRef.current);
+
+      if (onScenesLoaded) {
+        const structureSceneMap = new Map<string, THREE.Object3D[]>();
+        loadedScenesRef.current.forEach(({ structureId: sId, scene: sc }) => {
+          if (!structureSceneMap.has(sId)) {
+            structureSceneMap.set(sId, []);
+          }
+          structureSceneMap.get(sId)!.push(sc);
+        });
+        onScenesLoaded(structureSceneMap);
+      }
     },
     [onScenesLoaded]
   );
 
-  const assets = structureIds
-    .map((structureId) => ({
-      structureId,
-      assetPath: getAssetPathForStructure(structureId),
-    }))
-    .filter(
-      (
-        item
-      ): item is {
-        structureId: string;
-        assetPath: string;
-      } => item.assetPath !== null
-    );
+  // Flatten all assets across structures into individual render items with unique keys
+  const flatAssets: { structureId: string; assetKey: string; assetPath: string }[] = [];
+  structureIds.forEach((structureId, sIdx) => {
+    const paths = getAssetPathsForStructure(structureId);
+    paths.forEach((assetPath, aIdx) => {
+      flatAssets.push({
+        structureId,
+        assetKey: `${structureId}_${sIdx}_asset_${aIdx}_${assetPath}`,
+        assetPath,
+      });
+    });
+  });
 
   useEffect(() => {
     if (!groupRef.current) return;
@@ -406,7 +437,7 @@ function SharedCoordinateScene({
     // the ORIGINAL BodyParts3D coordinates.
     const combinedBox = new THREE.Box3();
 
-    loadedScenesRef.current.forEach((scene) => {
+    loadedScenesRef.current.forEach(({ scene }) => {
       combinedBox.expandByObject(scene);
     });
 
@@ -430,35 +461,8 @@ function SharedCoordinateScene({
       return;
     }
 
-    console.log(
-      "STEP 3-8 — Shared Coordinate Prototype"
-    );
-
-    console.log("Combined bounds:", {
-      min: combinedBox.min.toArray(),
-      max: combinedBox.max.toArray(),
-    });
-
-    console.log(
-      "Combined center:",
-      center.toArray()
-    );
-
-    console.log(
-      "Combined size:",
-      size.toArray()
-    );
-
-    console.log(
-      "Combined maxDimension:",
-      maxDimension
-    );
-
-    // IMPORTANT:
     // Only the parent scene is transformed.
-    //
-    // Individual BodyParts3D assets retain their
-    // original coordinates and relative scale.
+    // Individual BodyParts3D assets retain their original coordinates and relative scale.
     const sharedScale = 2 / maxDimension;
 
     groupRef.current.position.set(
@@ -468,47 +472,24 @@ function SharedCoordinateScene({
     );
 
     groupRef.current.scale.setScalar(sharedScale);
-
     groupRef.current.updateMatrixWorld(true);
-
-    const worldBox = new THREE.Box3().setFromObject(
-      groupRef.current
-    );
-
-    const worldCenter = worldBox.getCenter(
-      new THREE.Vector3()
-    );
-
-    const worldSize = worldBox.getSize(
-      new THREE.Vector3()
-    );
-
-    console.log(
-      "PHASE 3-8 — World Box Center:",
-      worldCenter.toArray()
-    );
-
-    console.log(
-      "PHASE 3-8 — World Box Size:",
-      worldSize.toArray()
-    );
   }, [version]);
 
   return (
     <group ref={groupRef}>
-      {assets.map(
-        ({ structureId, assetPath }) => (
-          <SharedCoordinateAsset
-            key={structureId}
-            structureId={structureId}
-            assetPath={assetPath}
-            isSelected={selectedStructure === structureId}
-            hidden={hiddenStructures.has(structureId)}
-            onLoaded={handleLoaded}
-            onSelect={onSelect}
-          />
-        )
-      )}
+      {flatAssets.map(({ structureId, assetKey, assetPath }) => (
+        <SharedCoordinateAsset
+          key={assetKey}
+          structureId={structureId}
+          assetKey={assetKey}
+          assetPath={assetPath}
+          isSelected={selectedStructure === structureId}
+          isRelated={relatedStructures.has(structureId)}
+          hidden={hiddenStructures.has(structureId)}
+          onLoaded={handleLoaded}
+          onSelect={onSelect}
+        />
+      ))}
     </group>
   );
 }
@@ -519,6 +500,7 @@ function SharedCoordinateScene({
 function AnatomyCanvasContent({
   structureIds = [],
   selectedStructure,
+  relatedStructures = new Set<string>(),
   hiddenStructures = new Set<string>(),
   resetTrigger,
   focusTrigger,
@@ -526,6 +508,7 @@ function AnatomyCanvasContent({
 }: {
   structureIds: string[];
   selectedStructure: string | null;
+  relatedStructures?: Set<string>;
   hiddenStructures?: Set<string>;
   resetTrigger: number;
   focusTrigger: number;
@@ -533,9 +516,9 @@ function AnatomyCanvasContent({
 }) {
   const { camera } = useThree();
   const controlsRef = useRef<any>(null);
-  const loadedScenesMapRef = useRef<Map<string, THREE.Object3D>>(new Map());
+  const loadedScenesMapRef = useRef<Map<string, THREE.Object3D[]>>(new Map());
 
-  const handleScenesLoaded = React.useCallback((scenes: Map<string, THREE.Object3D>) => {
+  const handleScenesLoaded = React.useCallback((scenes: Map<string, THREE.Object3D[]>) => {
     loadedScenesMapRef.current = scenes;
   }, []);
 
@@ -549,15 +532,19 @@ function AnatomyCanvasContent({
     }
   }, [camera, resetTrigger]);
 
-  // Handle Focus trigger on selected structure
+  // Handle Focus trigger on selected structure (supports 1:1 and 1:N scenes)
   useEffect(() => {
     if (focusTrigger === 0 || !selectedStructure) return;
-    const targetScene = loadedScenesMapRef.current.get(selectedStructure);
-    if (!targetScene) return;
+    const targetScenes = loadedScenesMapRef.current.get(selectedStructure);
+    if (!targetScenes || targetScenes.length === 0) return;
 
-    // Compute bounding box in world space
-    targetScene.updateWorldMatrix(true, true);
-    const worldBox = new THREE.Box3().setFromObject(targetScene);
+    // Compute combined bounding box across all element meshes belonging to the structure
+    const worldBox = new THREE.Box3();
+    targetScenes.forEach((scene) => {
+      scene.updateWorldMatrix(true, true);
+      worldBox.expandByObject(scene);
+    });
+
     if (worldBox.isEmpty()) return;
 
     const center = worldBox.getCenter(new THREE.Vector3());
@@ -584,14 +571,12 @@ function AnatomyCanvasContent({
     }
   }, [camera, focusTrigger, selectedStructure]);
 
-  const effectiveStructureIds = Array.from(new Set([
-    ...structureIds,
-    "nerve.optic",
-    "vessel.femoral.artery",
-    "organ.kidney.right",
-    "bone.hip.right",
-    "bone.patella.right"
-  ]));
+  const effectiveStructureIds =
+    structureIds.length > 0
+      ? structureIds
+      : selectedStructure
+      ? [selectedStructure]
+      : DEFAULT_INITIAL_STRUCTURE_IDS;
 
   return (
     <>
@@ -609,10 +594,11 @@ function AnatomyCanvasContent({
 
       <Grid args={[10, 10]} cellColor={"#6f6f6f"} sectionColor={"#9d4edd"} infiniteGrid />
 
-{/* STEP 3-8: Shared BodyParts3D coordinate prototype */}
+{/* Shared BodyParts3D coordinate system (1:1 & 1:N assets) */}
 <SharedCoordinateScene
   structureIds={effectiveStructureIds}
   selectedStructure={selectedStructure}
+  relatedStructures={relatedStructures}
   hiddenStructures={hiddenStructures}
   onSelect={onStructureSelected || (() => {})}
   onScenesLoaded={handleScenesLoaded}
@@ -642,17 +628,24 @@ export function AnatomyViewer({
   const [resetTrigger, setResetTrigger] = useState(0);
   const [focusTrigger, setFocusTrigger] = useState(0);
 
+  // Visibility Scope state
+  const [scopeMode, setScopeMode] = useState<VisibilityScope>("default");
+  const [loadedScopeIds, setLoadedScopeIds] = useState<string[]>(DEFAULT_INITIAL_STRUCTURE_IDS);
+  const [batchLoading, setBatchLoading] = useState(false);
+  const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(null);
+  const cancelBatchRef = useRef(false);
+
   // Extract unique systems dynamically from the registry
   const availableSystems = Array.from(
     new Set(
-      structuresRegistry.structures
+      combinedStructures
         .map((s) => s.system)
         .filter((sys): sys is string => typeof sys === "string" && sys.length > 0)
     )
   );
 
   const trimmedQuery = searchQuery.trim().toLowerCase();
-  const displayedStructures = structuresRegistry.structures.filter((s) => {
+  const displayedStructures = combinedStructures.filter((s) => {
     // 1. System filter check
     if (selectedSystem !== null && s.system !== selectedSystem) {
       return false;
@@ -669,6 +662,86 @@ export function AnatomyViewer({
     return true;
   });
 
+  // Handle Visibility Scope switching
+  const handleScopeChange = (newScope: VisibilityScope) => {
+    if (newScope === scopeMode) return;
+    setScopeMode(newScope);
+
+    // Cancel any in-flight batch loading
+    if (batchLoading) {
+      cancelBatchRef.current = true;
+      setBatchLoading(false);
+      setBatchProgress(null);
+    }
+
+    if (newScope === "default") {
+      setLoadedScopeIds(DEFAULT_INITIAL_STRUCTURE_IDS);
+    } else if (newScope === "selected") {
+      if (selectedStructure) {
+        setLoadedScopeIds([selectedStructure]);
+      } else {
+        setLoadedScopeIds(DEFAULT_INITIAL_STRUCTURE_IDS);
+      }
+    } else if (newScope === "system") {
+      // Find system from selectedStructure or active selectedSystem filter, or fallback to skeletal
+      const targetSystem =
+        (selectedStructure ? getStructureDetails(selectedStructure)?.system : null) ??
+        selectedSystem ??
+        "skeletal";
+      
+      const systemStructures = combinedStructures
+        .filter((s) => s.system?.toLowerCase() === targetSystem.toLowerCase())
+        .map((s) => s.id);
+      
+      if (systemStructures.length > 50) {
+        // Batch load system structures if large
+        startBatchLoading(systemStructures, 30);
+      } else {
+        setLoadedScopeIds(systemStructures.length > 0 ? systemStructures : DEFAULT_INITIAL_STRUCTURE_IDS);
+      }
+    } else if (newScope === "all") {
+      // Progressive batch loading for all 2,905 structures
+      const allIds = combinedStructures.map((s) => s.id);
+      startBatchLoading(allIds, 40);
+    }
+  };
+
+  const startBatchLoading = (targetIds: string[], batchSize = 30) => {
+    cancelBatchRef.current = false;
+    setBatchLoading(true);
+    setBatchProgress({ current: Math.min(batchSize, targetIds.length), total: targetIds.length });
+
+    // Seed with first batch
+    const initialBatch = targetIds.slice(0, batchSize);
+    setLoadedScopeIds(initialBatch);
+
+    let currentIndex = batchSize;
+
+    const loadNextBatch = () => {
+      if (cancelBatchRef.current || currentIndex >= targetIds.length) {
+        setBatchLoading(false);
+        setBatchProgress(null);
+        return;
+      }
+
+      const nextBatch = targetIds.slice(0, currentIndex + batchSize);
+      currentIndex += batchSize;
+      setLoadedScopeIds(nextBatch);
+      setBatchProgress({ current: Math.min(currentIndex, targetIds.length), total: targetIds.length });
+
+      // Yield frame to keep UI and WebGL responsive
+      setTimeout(loadNextBatch, 80);
+    };
+
+    setTimeout(loadNextBatch, 80);
+  };
+
+  const handleCancelBatch = () => {
+    cancelBatchRef.current = true;
+    setBatchLoading(false);
+    setBatchProgress(null);
+  };
+
   const handleStructureSelect = (structureId: string | null) => {
     if (structureId) {
       console.log(`PHASE 10 — Selected structure: ${structureId}`);
@@ -678,6 +751,21 @@ export function AnatomyViewer({
     setSelectedStructure(structureId);
     if (structureId) {
       onStructureSelected?.(structureId);
+      if (scopeMode === "selected") {
+        setLoadedScopeIds([structureId]);
+      } else if (scopeMode === "system") {
+        const sys = getStructureDetails(structureId)?.system;
+        if (sys) {
+          const sysIds = combinedStructures
+            .filter((s) => s.system?.toLowerCase() === sys.toLowerCase())
+            .map((s) => s.id);
+          if (sysIds.length > 50) {
+            startBatchLoading(sysIds, 30);
+          } else {
+            setLoadedScopeIds(sysIds);
+          }
+        }
+      }
     }
   };
 
@@ -721,6 +809,22 @@ export function AnatomyViewer({
     setFocusTrigger((prev) => prev + 1);
   };
 
+  // Derive set of directly related structure IDs from existing bidirectional relationship data
+  const relatedStructureIds = React.useMemo(() => {
+    if (!selectedStructure) return new Set<string>();
+    const rels = getRelationshipsForStructure(selectedStructure);
+    return new Set(rels.map((r) => r.otherStructureId));
+  }, [selectedStructure]);
+
+  // Compute effective structure IDs based on prop override, scopeMode, and loadedScopeIds
+  const effectiveStructureIdsToRender = React.useMemo(() => {
+    if (structureIds.length > 0) return structureIds;
+    if (scopeMode === "selected") {
+      return selectedStructure ? [selectedStructure] : DEFAULT_INITIAL_STRUCTURE_IDS;
+    }
+    return loadedScopeIds;
+  }, [structureIds, scopeMode, selectedStructure, loadedScopeIds]);
+
   return (
     <div className="w-full h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Canvas
@@ -728,12 +832,9 @@ export function AnatomyViewer({
         onPointerMissed={() => handleStructureSelect(null)}
       >
         <AnatomyCanvasContent
-          structureIds={
-            structureIds.length > 0
-              ? Array.from(new Set([...structureIds, "vessel.femoral.artery", "organ.kidney.right", "bone.hip.right", "bone.patella.right"]))
-              : ["bone.femur", "bone.tibia", "muscle.sartorius", "nerve.optic", "vessel.femoral.artery", "organ.kidney.right", "bone.hip.right", "bone.patella.right"]
-          }
+          structureIds={effectiveStructureIdsToRender}
           selectedStructure={selectedStructure}
+          relatedStructures={relatedStructureIds}
           hiddenStructures={hiddenStructures}
           resetTrigger={resetTrigger}
           focusTrigger={focusTrigger}
@@ -822,13 +923,13 @@ export function AnatomyViewer({
           {isListOpen && (
             <div className="overflow-y-auto max-h-64 sm:max-h-72 divide-y divide-slate-800/60">
               {displayedStructures.length > 0 ? (
-                displayedStructures.map((s) => {
+                displayedStructures.map((s, idx) => {
                   const isSelected = selectedStructure === s.id;
                   const isHidden = hiddenStructures.has(s.id);
 
                   return (
                     <button
-                      key={s.id}
+                      key={`${s.id}-${idx}`}
                       type="button"
                       onClick={() => handleListItemClick(s.id)}
                       className={`w-full text-left px-3 py-2 text-xs transition-colors flex flex-col gap-0.5 ${
@@ -984,50 +1085,129 @@ export function AnatomyViewer({
         })()}
       </div>
 
-      {/* Action Controls: Focus, Hide / Show, Show All, and Reset View buttons */}
-      <div className="absolute top-4 right-4 flex items-center space-x-2">
-        <button
-          type="button"
-          onClick={handleFocus}
-          disabled={!selectedStructure}
-          className={`text-xs font-semibold px-3 py-2 rounded border shadow-md transition-colors ${
-            selectedStructure
-              ? "bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white border-blue-400 cursor-pointer"
-              : "bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed opacity-60"
-          }`}
-        >
-          Focus
-        </button>
-        <button
-          type="button"
-          onClick={handleToggleHide}
-          disabled={!selectedStructure}
-          className={`text-xs font-semibold px-3 py-2 rounded border shadow-md transition-colors ${
-            selectedStructure
-              ? hiddenStructures.has(selectedStructure)
-                ? "bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white border-emerald-400 cursor-pointer"
-                : "bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white border-amber-400 cursor-pointer"
-              : "bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed opacity-60"
-          }`}
-        >
-          {selectedStructure && hiddenStructures.has(selectedStructure) ? "Show" : "Hide"}
-        </button>
-        {hiddenStructures.size > 0 && (
+      {/* Action Controls & Visibility Scope: Focus, Hide / Show, Scope switcher, Reset View */}
+      <div className="absolute top-4 right-4 flex flex-col items-end gap-2 pointer-events-none z-10">
+        <div className="flex items-center space-x-2 pointer-events-auto">
+          {/* Visibility Scope Segmented Buttons */}
+          <div className="bg-slate-900/90 border border-slate-700 rounded-lg p-0.5 flex items-center shadow-lg backdrop-blur-md">
+            <button
+              type="button"
+              onClick={() => handleScopeChange("default")}
+              className={`text-xs px-2.5 py-1 rounded font-medium transition-colors ${
+                scopeMode === "default"
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/80"
+              }`}
+            >
+              Default
+            </button>
+            <button
+              type="button"
+              onClick={() => handleScopeChange("selected")}
+              className={`text-xs px-2.5 py-1 rounded font-medium transition-colors ${
+                scopeMode === "selected"
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/80"
+              }`}
+            >
+              Selected
+            </button>
+            <button
+              type="button"
+              onClick={() => handleScopeChange("system")}
+              className={`text-xs px-2.5 py-1 rounded font-medium transition-colors ${
+                scopeMode === "system"
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/80"
+              }`}
+            >
+              System
+            </button>
+            <button
+              type="button"
+              onClick={() => handleScopeChange("all")}
+              className={`text-xs px-2.5 py-1 rounded font-medium transition-colors ${
+                scopeMode === "all"
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/80"
+              }`}
+            >
+              All
+            </button>
+          </div>
+
           <button
             type="button"
-            onClick={handleShowAll}
-            className="bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-emerald-400 text-xs font-semibold px-3 py-2 rounded border border-emerald-500/50 shadow-md transition-colors cursor-pointer"
+            onClick={handleFocus}
+            disabled={!selectedStructure}
+            className={`text-xs font-semibold px-3 py-2 rounded border shadow-md transition-colors ${
+              selectedStructure
+                ? "bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white border-blue-400 cursor-pointer"
+                : "bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed opacity-60"
+            }`}
           >
-            Show All ({hiddenStructures.size})
+            Focus
           </button>
+          <button
+            type="button"
+            onClick={handleToggleHide}
+            disabled={!selectedStructure}
+            className={`text-xs font-semibold px-3 py-2 rounded border shadow-md transition-colors ${
+              selectedStructure
+                ? hiddenStructures.has(selectedStructure)
+                  ? "bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white border-emerald-400 cursor-pointer"
+                  : "bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white border-amber-400 cursor-pointer"
+                : "bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed opacity-60"
+            }`}
+          >
+            {selectedStructure && hiddenStructures.has(selectedStructure) ? "Show" : "Hide"}
+          </button>
+          {hiddenStructures.size > 0 && (
+            <button
+              type="button"
+              onClick={handleShowAll}
+              className="bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-emerald-400 text-xs font-semibold px-3 py-2 rounded border border-emerald-500/50 shadow-md transition-colors cursor-pointer"
+            >
+              Show All ({hiddenStructures.size})
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={handleResetView}
+            className="bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-white text-xs font-semibold px-3 py-2 rounded border border-slate-600 shadow-md transition-colors cursor-pointer"
+          >
+            Reset View
+          </button>
+        </div>
+
+        {/* Batch Loading Progress and Cancel Bar */}
+        {batchLoading && batchProgress && (
+          <div className="bg-slate-900/95 border border-blue-500/60 rounded-lg px-3 py-2 flex items-center gap-3 shadow-2xl backdrop-blur-md pointer-events-auto">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center justify-between gap-4 text-xs">
+                <span className="font-semibold text-blue-300">Loading anatomy...</span>
+                <span className="font-mono text-slate-300 text-[11px]">
+                  {batchProgress.current} / {batchProgress.total}
+                </span>
+              </div>
+              <div className="w-48 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="bg-blue-500 h-1.5 rounded-full transition-all duration-150"
+                  style={{
+                    width: `${Math.round((batchProgress.current / batchProgress.total) * 100)}%`,
+                  }}
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleCancelBatch}
+              className="text-xs px-2 py-1 bg-rose-600/80 hover:bg-rose-500 active:bg-rose-700 text-white rounded font-medium transition-colors shadow-sm cursor-pointer"
+            >
+              Cancel
+            </button>
+          </div>
         )}
-        <button
-          type="button"
-          onClick={handleResetView}
-          className="bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-white text-xs font-semibold px-3 py-2 rounded border border-slate-600 shadow-md transition-colors cursor-pointer"
-        >
-          Reset View
-        </button>
       </div>
 
       {/* HUD: Controls info */}
